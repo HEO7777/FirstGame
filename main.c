@@ -27,38 +27,14 @@ typedef struct {
 	float hp, mp, ATK, DEF, a_cool, a_mot_start, a_mot_end;
 } Player;
 
+
+
 void print_title(void);
 void print_start(void);
 void init_game(Player* p1);
-void attack_motion(Player* p1, int i)
-{
-	if (i == p1->y - 1 && 1.9f < p1->a_cool && p1->a_cool <= 2.0f)
-	{
-		for (i = 0; i < p1->x; ++i)
-			printf(" ");
-		printf("l");
-	}
-	else if (i == p1->y - 1 && 1.8f < p1->a_cool && p1->a_cool <= 1.9f)
-	{
-		for (i = 0; i < p1->x + 2; ++i)
-			printf(" ");
-		printf("/");
-	}
-	else if (i == 1 && 1.6f < p1->a_cool && p1->a_cool <= 1.7f)
-	{
-		for (i = 0; i < p1->x + 2; ++i)
-			printf(" ");
-		printf("L");
-	}
-	else if (i == 1 && 1.5f < p1->a_cool && p1->a_cool <= 1.6f)
-	{
-		for (i = 0; i < p1->x; ++i)
-			printf(" ");
-		printf("l");
-	}
+void attack_motion(Player* p1, int i);
 
-	printf("\n");
-}
+
 
 int main(void)
 {
@@ -114,6 +90,7 @@ int main(void)
 			
 		printf("HP: %.1f MP: %.1f | ATK: %.1f DEF: %.1f", p1.hp, p1.mp, p1.ATK, p1.DEF);
 
+		// 구조체 변수를 좀 더 효율적으로 다룰 방법이 없나?
 		fwrite(&(p1.x), sizeof(p1.x), 1, f2);
 		fwrite(&(p1.y), sizeof(p1.y), 1, f2);
 		fwrite(&(p1.hp), sizeof(p1.hp), 1, f2);
@@ -212,6 +189,7 @@ void init_game(Player* p1)
 			print_start();
 		}
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		// 구조체 변수를 좀 더 효율적으로 다룰 방법이 없나?
 		p1->x = INIT_POS;
 		p1->y = INIT_POS;
 		p1->hp = INIT_HP;
@@ -222,4 +200,35 @@ void init_game(Player* p1)
 		p1->a_mot_start = INIT_A_MOT_S;
 		p1->a_mot_end = INIT_A_MOT_E;
 	}
+}
+
+
+void attack_motion(Player* p1, int i)
+{
+	if (i == p1->y - 1 && 1.9f < p1->a_cool && p1->a_cool <= 2.0f)
+	{
+		for (i = 0; i < p1->x; ++i)
+			printf(" ");
+		printf("l");
+	}
+	else if (i == p1->y - 1 && 1.8f < p1->a_cool && p1->a_cool <= 1.9f)
+	{
+		for (i = 0; i < p1->x + 2; ++i)
+			printf(" ");
+		printf("/");
+	}
+	else if (i == 1 && 1.6f < p1->a_cool && p1->a_cool <= 1.7f)
+	{
+		for (i = 0; i < p1->x + 2; ++i)
+			printf(" ");
+		printf("L");
+	}
+	else if (i == 1 && 1.5f < p1->a_cool && p1->a_cool <= 1.6f)
+	{
+		for (i = 0; i < p1->x; ++i)
+			printf(" ");
+		printf("l");
+	}
+
+	printf("\n");
 }
